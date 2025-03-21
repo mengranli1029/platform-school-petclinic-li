@@ -45,13 +45,13 @@ class ValidatorTests {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Person person = new Person();
-		person.setFirstName("mr"); // TODO - shouldn't this be set to the empty string?
+		person.setFirstName(""); // TODO - shouldn't this be set to the empty string?
 		person.setLastName("smith");
 
 		Validator validator = createValidator();
 		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
 
-		assertThat(constraintViolations).hasSize(0);
+		assertThat(constraintViolations).hasSize(1);
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath()).hasToString("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be blank");
