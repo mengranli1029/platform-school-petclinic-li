@@ -22,8 +22,19 @@ jobs:
       - name: Run unit tests
         run: ./mvnw test -DskipTests=false
 
-      - name: Secret Scanning
-        uses: trufflesecurity/trufflehog@main
+#      - name: Secret Scanning
+#        uses: trufflesecurity/trufflehog@main
+#        with:
+#          base: main
+#          # extra_args: --results=verified,unknown
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
         with:
-          base: main
-          # extra_args: --results=verified,unknown
+          scan-type: 'fs' # filesystem mode
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '1' # fail pipeline on detected error
+          scanners: 'vuln,misconfig' # use these two scanner categories
+          severity: 'CRITICAL,HIGH,MEDIUM' # skip UNKNOWN and LOW
+          skip-dirs: '.devcontainer' # ignore this directory
