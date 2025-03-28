@@ -19,3 +19,9 @@ jobs:
 
       - name: Run unit tests
         run: ./mvnw test -DskipTests=false
+
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          base: main
+          # extra_args: --results=verified,unknown
