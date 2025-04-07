@@ -20,3 +20,12 @@ jobs:
           -Dspring-boot.build-image.publish=true
           -Ddocker.publishRegistry.username=${{ github.actor }}
           -Ddocker.publishRegistry.password=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Trivy image scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'image'
+          image-ref: 'ghcr.io/${{ github.repository }}:latest'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          scanners: 'vuln,misconfig' # use these two scanner categories
+          exit-code: '1' # fail pipeline on detected error
