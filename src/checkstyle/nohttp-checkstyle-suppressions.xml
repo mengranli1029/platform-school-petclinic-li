@@ -8,5 +8,5 @@
 	<suppress files="build[\\/].*" checks=".*"/>
 	<suppress files="target[\\/].*" checks=".*"/>
 	<suppress files=".+\.(jar|git|ico|p12|gif|jks|jpg|svg|log)" checks="NoHttp"/>
-    <suppress files="[\\/]application\.properties$" lines="41, 43" checks="NoHttp" />	
+    <suppress files="[\\/]application\.properties$" lines="32, 34" checks="NoHttp" />	
 </suppressions>
